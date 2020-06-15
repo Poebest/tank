@@ -16,6 +16,7 @@ import java.awt.*;
 @Data
 @Builder
 @AllArgsConstructor
+//@NoArgsConstructor
 public class TankFrame extends Frame {
 
 }
