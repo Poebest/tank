@@ -20,7 +20,7 @@ import java.awt.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
+//@Data
 public class Tank {
     /**
      * 坦克速度
@@ -47,11 +47,11 @@ public class Tank {
      */
     private boolean moving = false;
     /**
-     * 左右移动距离
+     * 定义tank 初始化位置,x
      */
     private int x;
     /**
-     * 上下移动距离
+     * 定义tank 初始化位置,y
      */
     private int y;
     /**
