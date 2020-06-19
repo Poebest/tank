@@ -29,10 +29,10 @@ public class Constants {
     /**
      * tank 宽度
      */
-    public static final Integer tankWidth = 100;
+    public static final Integer tankWidth = 200;
     /**
      * tank 高度
      */
-    public static final Integer tankHeight = 100;
+    public static final Integer tankHeight = 200;
 
 }

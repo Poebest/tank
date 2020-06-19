@@ -1,21 +1,18 @@
 package main.java.com.poe.tank.entity;
 
 import cn.hutool.core.collection.ListUtil;
-import cn.hutool.core.util.RandomUtil;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import main.java.com.poe.tank.common.Constants;
 import main.java.com.poe.tank.enums.Dir;
 import main.java.com.poe.tank.enums.Group;
 
 import java.awt.*;
-import java.awt.event.*;
-import java.util.HashMap;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * @version v1.0
@@ -23,21 +20,22 @@ import java.util.UUID;
  * @Description TODO 初始化tank界面 数据实体
  * @Classname TankFrame
  */
-@Data
-@Builder
-@AllArgsConstructor
-//@NoArgsConstructor
+
+@Setter
+@Getter
 public class TankFrame extends Frame {
     /**
      * 初始化一个实体
      */
     public static final TankFrame INSTANCE = new TankFrame();
-
     /**
      * 初始化生成tank内容
      */
     public Tank tank =
-            new Tank(RandomUtil.randomInt(Constants.gameWidth), RandomUtil.randomInt(Constants.gameHeight), Dir.DOWN, Group.GOOD, this);
+            new Tank(Constants.tankHeight, Constants.tankHeight, Dir.DOWN, Group.GOOD, this);
+
+
+    public List<Bullet> bullets = ListUtil.list(false);
 
     public int x, y = 100;
     /**
@@ -47,6 +45,8 @@ public class TankFrame extends Frame {
     /**
      * tank 数量
      */
+    @Setter
+    @Getter
     Map<UUID, Tank> map = new HashMap<>(Constants.tankCount);
 
     public TankFrame() {
@@ -69,9 +69,34 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        //设置tank 出现初始位置
-        g.fillRect(x, y, 50, 50);
+        Color color = g.getColor();
+        g.setColor(Color.BLACK);
 
+        g.drawString("子弹数量  : " + bullets.size(), 10, 60);
+        //设置tank 出现初始位置
+        tank.paint(g);
+        bullets.forEach(bullet -> {
+            bullet.paint(g);
+        });
+        g.setColor(color);
+    }
+
+    Image image = null;
+
+    @Override
+    public void update(Graphics g) {
+        if (Objects.isNull(image)) {
+            //解决双重缓冲问题
+            image = this.createImage(Constants.gameWidth, Constants.gameHeight);
+        }
+        Graphics graphics = image.getGraphics();
+        Color color = graphics.getColor();
+        graphics.setColor(Color.BLACK);
+        g.fillRect(x, y, Constants.gameWidth, Constants.gameHeight);
+        graphics.setColor(color);
+        paint(graphics);
+        //创建一个透明的图层
+        g.drawImage(image, 0, 0, null);
     }
 
     // FIXME: 2020/6/16  自定义键盘监听内部类
@@ -113,7 +138,7 @@ public class TankFrame extends Frame {
                     break;
 
             }
-
+            setMainTankDir();
         }
 
         /**
@@ -137,9 +162,39 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_DOWN:
                     bP = false;
                     break;
+                case KeyEvent.VK_CONTROL:
+                    tank.fire();
+                    break;
                 default:
                     break;
 
+            }
+            setMainTankDir();
+        }
+
+        /**
+         * 设置tank方向
+         */
+        private void setMainTankDir() {
+
+            //按下其他按键的时候, 不进行移动tank
+
+            if (!bL && !bU && !bR && !bP) {
+                tank.setMoving(false);
+            } else {
+                tank.setMoving(true);
+                if (bL) {
+                    tank.setDir(Dir.LEFT);
+                }
+                if (bU) {
+                    tank.setDir(Dir.UP);
+                }
+                if (bR) {
+                    tank.setDir(Dir.RIGHT);
+                }
+                if (bP) {
+                    tank.setDir(Dir.DOWN);
+                }
             }
         }
     }

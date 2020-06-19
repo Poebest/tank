@@ -1,10 +1,7 @@
 package main.java.com.poe.tank.entity;
 
 import cn.hutool.core.lang.UUID;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import main.java.com.poe.tank.common.Constants;
 import main.java.com.poe.tank.enums.Dir;
 import main.java.com.poe.tank.enums.Group;
@@ -17,10 +14,8 @@ import java.awt.*;
  * @Description TODO tank 数据实体
  * @Classname Tank
  */
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-//@Data
+@Setter
+@Getter
 public class Tank {
     /**
      * 坦克速度
@@ -85,4 +80,47 @@ public class Tank {
         rectangle.height = height;
     }
 
+    public void paint(Graphics g) {
+        //set tank color
+        Color color = g.getColor();
+        g.setColor(Color.yellow);
+        //位置移动
+        g.fillRect(x, y, 50, 50);
+        //解决, 位置移动后, 闪烁问题
+        g.setColor(color);
+
+        move();
+    }
+
+    /**
+     * 是否进行移动
+     */
+    private void move() {
+
+        if (!moving) {
+            return;
+        }
+
+        switch (dir) {
+            case LEFT:
+                x -= Constants.tankSpeed;
+                break;
+            case RIGHT:
+                x += Constants.tankSpeed;
+                break;
+            case DOWN:
+                y += Constants.tankSpeed;
+                break;
+            case UP:
+                y -= Constants.tankSpeed;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void fire() {
+
+        tankFrame.bullets.add(new Bullet(this.x, this.y, this.dir, tankFrame));
+    }
 }
