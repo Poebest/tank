@@ -36,20 +36,20 @@ public class ResourceMgr {
     // FIXME: 2020/6/13 数据初始化
         static {
         try {
-            goodTankL = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));
-            goodTankU = ImgUtil.toBufferedImage(ImgUtil.rotate(goodTankL, -90));
-            goodTankR = ImgUtil.toBufferedImage(ImgUtil.rotate(goodTankL, 90));
-            goodTankD = ImgUtil.toBufferedImage(ImgUtil.rotate(goodTankL, 180));
+            goodTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));
+            goodTankL = ImgUtil.toBufferedImage(ImgUtil.rotate(goodTankU, -90));
+            goodTankR = ImgUtil.toBufferedImage(ImgUtil.rotate(goodTankU, 90));
+            goodTankD = ImgUtil.toBufferedImage(ImgUtil.rotate(goodTankU, 180));
 
-            badTankL = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/BadTank1.png"));
-            badTankU = ImgUtil.toBufferedImage(ImgUtil.rotate(badTankL, -90));
-            badTankR = ImgUtil.toBufferedImage(ImgUtil.rotate(badTankL, 90));
-            badTankD = ImgUtil.toBufferedImage(ImgUtil.rotate(badTankL, 180));
+            badTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/BadTank1.png"));
+            badTankL = ImgUtil.toBufferedImage(ImgUtil.rotate(badTankU, -90));
+            badTankR = ImgUtil.toBufferedImage(ImgUtil.rotate(badTankU, 90));
+            badTankD = ImgUtil.toBufferedImage(ImgUtil.rotate(badTankU, 180));
 
-            bulletL = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletU.png"));
-            bulletU = ImgUtil.toBufferedImage(ImgUtil.rotate(bulletL, -90));
-            bulletR = ImgUtil.toBufferedImage(ImgUtil.rotate(bulletL, 90));
-            bulletD = ImgUtil.toBufferedImage(ImgUtil.rotate(bulletL, 180));
+            bulletU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletU.png"));
+            bulletL = ImgUtil.toBufferedImage(ImgUtil.rotate(bulletU, -90));
+            bulletR = ImgUtil.toBufferedImage(ImgUtil.rotate(bulletU, 90));
+            bulletD = ImgUtil.toBufferedImage(ImgUtil.rotate(bulletU, 180));
 
             for (int i = 1; i < 16; i++) {
                 explodes[i] = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/e" + i + ".gif"));

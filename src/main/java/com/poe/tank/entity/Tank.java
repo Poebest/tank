@@ -3,6 +3,7 @@ package main.java.com.poe.tank.entity;
 import cn.hutool.core.lang.UUID;
 import lombok.*;
 import main.java.com.poe.tank.common.Constants;
+import main.java.com.poe.tank.common.ResourceMgr;
 import main.java.com.poe.tank.enums.Dir;
 import main.java.com.poe.tank.enums.Group;
 
@@ -82,12 +83,29 @@ public class Tank {
 
     public void paint(Graphics g) {
         //set tank color
-        Color color = g.getColor();
-        g.setColor(Color.yellow);
-        //位置移动
-        g.fillRect(x, y, 50, 50);
-        //解决, 位置移动后, 闪烁问题
-        g.setColor(color);
+//        Color color = g.getColor();
+//        g.setColor(Color.yellow);
+//        //位置移动
+//        g.fillRect(x, y, 50, 50);
+//        //解决, 位置移动后, 闪烁问题
+//        g.setColor(color);
+
+        switch (dir) {
+            case LEFT:
+                g.drawImage(ResourceMgr.goodTankL, x, y, null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.goodTankR, x, y, null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.goodTankD, x, y, null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.goodTankU, x, y, null);
+                break;
+            default:
+                break;
+        }
 
         move();
     }
@@ -121,6 +139,10 @@ public class Tank {
 
     public void fire() {
 
-        tankFrame.bullets.add(new Bullet(this.x, this.y, this.dir, tankFrame));
+//        tankFrame.bullets.add(new Bullet(this.x, this.y, this.dir, tankFrame));
+        //矫正 bullets 位置
+        int bx = this.x + Constants.tankWidth / 2 - Constants.bulletWidth / 2;
+        int by = this.y + Constants.tankHeight / 2 - Constants.bulletHeight / 2;
+        tankFrame.bullets.add(new Bullet(bx, by, this.dir, tankFrame));
     }
 }

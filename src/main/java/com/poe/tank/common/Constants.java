@@ -29,10 +29,19 @@ public class Constants {
     /**
      * tank 宽度
      */
-    public static final Integer tankWidth = 200;
+    public static final Integer tankWidth = ResourceMgr.goodTankD.getWidth();
     /**
      * tank 高度
      */
-    public static final Integer tankHeight = 200;
+    public static final Integer tankHeight = ResourceMgr.goodTankD.getHeight();
+
+    /**
+     * bulletU 宽度
+     */
+    public static final Integer bulletWidth = ResourceMgr.bulletU.getWidth();
+    /**
+     * bulletU 高度
+     */
+    public static final Integer bulletHeight = ResourceMgr.bulletU.getHeight();
 
 }

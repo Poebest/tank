@@ -2,6 +2,7 @@ package main.java.com.poe.tank.entity;
 
 import lombok.*;
 import main.java.com.poe.tank.common.Constants;
+import main.java.com.poe.tank.common.ResourceMgr;
 import main.java.com.poe.tank.enums.Dir;
 
 import java.awt.*;
@@ -18,7 +19,9 @@ import java.awt.*;
 @Getter
 public class Bullet {
 
-    private static int WIDTH = 30, HEIGHT = 30;
+    private static int WIDTH = ResourceMgr.bulletD.getWidth();
+    private static int HEIGHT = ResourceMgr.bulletD.getHeight();
+
     /**
      * bullet 位置
      */
@@ -44,13 +47,28 @@ public class Bullet {
 
 
     public void paint(Graphics g) {
-        Color color = g.getColor();
-        g.setColor(Color.red);
-        //位置移动
-        g.fillRect(x, y, WIDTH, HEIGHT);
-        //解决, 位置移动后, 闪烁问题
-        g.setColor(color);
-
+//        Color color = g.getColor();
+//        g.setColor(Color.red);
+//        //位置移动
+//        g.fillRect(x, y, WIDTH, HEIGHT);
+//        //解决, 位置移动后, 闪烁问题
+//        g.setColor(color);
+        switch (dir) {
+            case LEFT:
+                g.drawImage(ResourceMgr.bulletL , x , y ,null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.bulletR , x , y ,null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.bulletD , x , y ,null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.bulletU , x , y ,null);
+                break;
+            default:
+                break;
+        }
         move();
     }
 
