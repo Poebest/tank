@@ -34,7 +34,7 @@ public class ResourceMgr {
 
 
     // FIXME: 2020/6/13 数据初始化
-        static {
+    static {
         try {
             goodTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));
             goodTankL = ImgUtil.toBufferedImage(ImgUtil.rotate(goodTankU, -90));
@@ -51,8 +51,9 @@ public class ResourceMgr {
             bulletR = ImgUtil.toBufferedImage(ImgUtil.rotate(bulletU, 90));
             bulletD = ImgUtil.toBufferedImage(ImgUtil.rotate(bulletU, 180));
 
-            for (int i = 1; i < 16; i++) {
-                explodes[i] = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/e" + i + ".gif"));
+            for (int i = 0; i < 16; i++) {
+                explodes[i] = ImageIO
+                        .read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/e" + (i + 1) + ".gif"));
             }
 
         } catch (Exception e) {

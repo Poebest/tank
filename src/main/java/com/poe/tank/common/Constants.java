@@ -13,7 +13,7 @@ public class Constants {
     /**
      * 坦克速度
      */
-    public static final Integer tankSpeed = 5;
+    public static final Integer tankSpeed = 1;
     /**
      * 导弹速度
      */

@@ -4,8 +4,10 @@ import lombok.*;
 import main.java.com.poe.tank.common.Constants;
 import main.java.com.poe.tank.common.ResourceMgr;
 import main.java.com.poe.tank.enums.Dir;
+import main.java.com.poe.tank.enums.Group;
 
 import java.awt.*;
+import java.util.Objects;
 
 /**
  * @version v1.0
@@ -38,11 +40,14 @@ public class Bullet {
      */
     private Boolean isLive = true;
 
-    public Bullet(int x, int y, Dir dir, TankFrame tankFrame) {
+    private Group group;
+
+    public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tankFrame = tankFrame;
+        this.group = group;
     }
 
 
@@ -96,5 +101,30 @@ public class Bullet {
         if (x < 0 || y < 0 || x > Constants.gameWidth || y > Constants.gameHeight) {
             isLive = false;
         }
+    }
+
+    /**
+     * 碰撞计算 定义在一个位置 , 如果在同个区域中有交集, 即为bullet 和 tank 即为碰撞
+     *
+     * @param tank
+     */
+    public void collideWith(Tank tank) {
+        if (Objects.equals(this.group, tank.getGroup())) {
+            return;
+        }
+        //子弹的区域
+        Rectangle rec1 = new Rectangle(x, y, WIDTH, HEIGHT);
+        //tank区域
+        Rectangle rec2 = new Rectangle(tank.getX(), tank.getHeight(), Constants.tankWidth, Constants.tankHeight);
+        if (rec1.intersects(rec2)) {
+            tank.die();
+            this.die();
+
+        }
+    }
+
+    private void die() {
+        this.isLive = false;
+
     }
 }

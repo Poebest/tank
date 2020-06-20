@@ -8,6 +8,7 @@ import main.java.com.poe.tank.enums.Dir;
 import main.java.com.poe.tank.enums.Group;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * @version v1.0
@@ -34,6 +35,9 @@ public class Tank {
      * uuid
      */
     private UUID id = UUID.randomUUID();
+
+    private Random random = new Random();
+
     /**
      * 默认坦克方向
      */
@@ -41,7 +45,7 @@ public class Tank {
     /**
      * 默认不进行移动
      */
-    private boolean moving = false;
+    private boolean moving = true;
     /**
      * 定义tank 初始化位置,x
      */
@@ -88,6 +92,9 @@ public class Tank {
 //        //位置移动
 //        g.fillRect(x, y, 50, 50);
 //        g.setColor(color);
+        if (!living) {
+            tankFrame.tanks.remove(this);
+        }
 
         switch (dir) {
             case LEFT:
@@ -134,6 +141,9 @@ public class Tank {
             default:
                 break;
         }
+        if (random.nextInt(10) > 8) {
+            this.fire();
+        }
     }
 
     public void fire() {
@@ -142,6 +152,10 @@ public class Tank {
         //矫正 bullets 位置
         int bx = this.x + Constants.tankWidth / 2 - Constants.bulletWidth / 2;
         int by = this.y + Constants.tankHeight / 2 - Constants.bulletHeight / 2;
-        tankFrame.bullets.add(new Bullet(bx, by, this.dir, tankFrame));
+        tankFrame.bullets.add(new Bullet(bx, by, this.dir, this.group, tankFrame));
+    }
+
+    public void die() {
+        this.living = false;
     }
 }

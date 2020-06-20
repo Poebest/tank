@@ -1,6 +1,10 @@
 package main.java.com.poe.tank.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import main.java.com.poe.tank.common.ResourceMgr;
+
+import java.awt.*;
 
 /**
  * @version v1.0
@@ -8,6 +12,8 @@ import main.java.com.poe.tank.common.ResourceMgr;
  * @Description TODO 爆炸
  * @Classname Explode
  */
+@Setter
+@Getter
 public class Explode {
     /**
      * 爆炸效果宽度
@@ -27,10 +33,22 @@ public class Explode {
      */
     private int y;
 
-    public Explode(int x, int y) {
+    private int step = 0;
+
+    private TankFrame tankFrame;
+
+    public Explode(int x, int y, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
+        this.tankFrame = tankFrame;
         // FIXME: 2020/6/15 爆炸的时候,同时播放爆炸音效
 //        new  Thread(()-> new Audio())
+    }
+
+    public void paint(Graphics g) {
+        g.drawImage(ResourceMgr.explodes[step++], x, y, null);
+        if (step >= ResourceMgr.explodes.length) {
+            step = 0;
+        }
     }
 }
