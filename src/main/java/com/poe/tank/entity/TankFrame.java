@@ -34,6 +34,8 @@ public class TankFrame extends Frame {
     public Tank tank =
             new Tank(Constants.tankHeight, Constants.tankHeight, Dir.DOWN, Group.GOOD, this);
 
+    public List<Tank> tanks = ListUtil.list(false);
+
 
     public List<Bullet> bullets = ListUtil.list(false);
 
@@ -41,7 +43,7 @@ public class TankFrame extends Frame {
     /**
      * 子弹列表
      */
-    public List<Bullet> list = ListUtil.list(true);
+    public List<Bullet> list = ListUtil.list(false);
     /**
      * tank 数量
      */
@@ -70,14 +72,16 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         Color color = g.getColor();
-        g.setColor(Color.BLACK);
-
+        g.setColor(Color.WHITE);
         g.drawString("子弹数量  : " + bullets.size(), 10, 60);
         //设置tank 出现初始位置
         tank.paint(g);
-        bullets.forEach(bullet -> {
-            bullet.paint(g);
-        });
+        for (int i = 0; i < bullets.size(); i++) {
+            bullets.get(i).paint(g);
+        }
+        for (int i = 0; i < tanks.size(); i++) {
+            tanks.get(i).paint(g);
+        }
         g.setColor(color);
     }
 
@@ -92,12 +96,13 @@ public class TankFrame extends Frame {
         Graphics graphics = image.getGraphics();
         Color color = graphics.getColor();
         graphics.setColor(Color.BLACK);
-        g.fillRect(x, y, Constants.gameWidth, Constants.gameHeight);
+        graphics.fillRect(0, 0, Constants.gameWidth, Constants.gameHeight);
         graphics.setColor(color);
         paint(graphics);
         //创建一个透明的图层
         g.drawImage(image, 0, 0, null);
     }
+
 
     // FIXME: 2020/6/16  自定义键盘监听内部类
     class MyKeyListener extends KeyAdapter {

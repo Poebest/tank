@@ -55,16 +55,16 @@ public class Bullet {
 //        g.setColor(color);
         switch (dir) {
             case LEFT:
-                g.drawImage(ResourceMgr.bulletL , x , y ,null);
+                g.drawImage(ResourceMgr.bulletL, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.bulletR , x , y ,null);
+                g.drawImage(ResourceMgr.bulletR, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.bulletD , x , y ,null);
+                g.drawImage(ResourceMgr.bulletD, x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.bulletU , x , y ,null);
+                g.drawImage(ResourceMgr.bulletU, x, y, null);
                 break;
             default:
                 break;
@@ -74,7 +74,7 @@ public class Bullet {
 
     private void move() {
         if (!isLive) {
-            return;
+            tankFrame.bullets.remove(this);
         }
 
         switch (dir) {

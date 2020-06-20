@@ -9,7 +9,7 @@ public class Constants {
     /**
      * 预备坦克数量
      */
-    public static final Integer tankCount = 10;
+    public static final Integer tankCount = 5;
     /**
      * 坦克速度
      */
