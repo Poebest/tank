@@ -153,7 +153,7 @@ public class Tank {
 
     }
 
-    private void randomDir(){
+    private void randomDir() {
         this.dir = Dir.values()[random.nextInt(4)];
     }
 
@@ -164,6 +164,9 @@ public class Tank {
         int bx = this.x + Constants.tankWidth / 2 - Constants.bulletWidth / 2;
         int by = this.y + Constants.tankHeight / 2 - Constants.bulletHeight / 2;
         tankFrame.bullets.add(new Bullet(bx, by, this.dir, this.group, tankFrame));
+        if (Objects.equals(this.group, Group.GOOD)){
+            new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
+        }
     }
 
     public void die() {

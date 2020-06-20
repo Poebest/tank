@@ -42,7 +42,8 @@ public class Explode {
         this.y = y;
         this.tankFrame = tankFrame;
         // FIXME: 2020/6/15 爆炸的时候,同时播放爆炸音效
-//        new  Thread(()-> new Audio())
+        new Thread(() -> new Audio("audio/explode.wav").play()).start();
+
     }
 
     public void paint(Graphics g) {
