@@ -8,6 +8,7 @@ import main.java.com.poe.tank.enums.Dir;
 import main.java.com.poe.tank.enums.Group;
 
 import java.awt.*;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -141,9 +142,19 @@ public class Tank {
             default:
                 break;
         }
-        if (random.nextInt(10) > 8) {
+
+        if (Objects.equals(this.group, Group.BAD) && random.nextInt(100) > 95) {
             this.fire();
         }
+        if (this.group == Group.BAD && random.nextInt(100) > 95) {
+            //随机方向
+            randomDir();
+        }
+
+    }
+
+    private void randomDir(){
+        this.dir = Dir.values()[random.nextInt(4)];
     }
 
     public void fire() {
