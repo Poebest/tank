@@ -87,7 +87,6 @@ public class Tank {
 //        g.setColor(Color.yellow);
 //        //位置移动
 //        g.fillRect(x, y, 50, 50);
-//        //解决, 位置移动后, 闪烁问题
 //        g.setColor(color);
 
         switch (dir) {

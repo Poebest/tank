@@ -47,8 +47,6 @@ public class TankFrame extends Frame {
     /**
      * tank 数量
      */
-    @Setter
-    @Getter
     Map<UUID, Tank> map = new HashMap<>(Constants.tankCount);
 
     public TankFrame() {
@@ -86,7 +84,7 @@ public class TankFrame extends Frame {
     }
 
     Image image = null;
-
+    //解决双重缓冲, 闪烁问题
     @Override
     public void update(Graphics g) {
         if (Objects.isNull(image)) {
@@ -107,10 +105,10 @@ public class TankFrame extends Frame {
     // FIXME: 2020/6/16  自定义键盘监听内部类
     class MyKeyListener extends KeyAdapter {
 
-        protected boolean bL = false;
-        protected boolean bR = false;
-        protected boolean bU = false;
-        protected boolean bP = false;
+        private boolean bL = false;
+        private boolean bR = false;
+        private boolean bU = false;
+        private boolean bP = false;
 
         /**
          * 按下键盘
