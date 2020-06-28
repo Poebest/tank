@@ -18,11 +18,11 @@ public class Explode {
     /**
      * 爆炸效果宽度
      */
-    private static int WIDTH = ResourceMgr.explodes[0].getWidth();
+    public final static int WIDTH = ResourceMgr.explodes[0].getWidth();
     /**
      * 爆炸效果高度
      */
-    private static int HEIGHT = ResourceMgr.explodes[0].getWidth();
+    public final static int HEIGHT = ResourceMgr.explodes[0].getWidth();
 
     /**
      * 爆炸位置x

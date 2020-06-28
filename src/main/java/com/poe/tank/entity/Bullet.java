@@ -119,8 +119,11 @@ public class Bullet {
         if (rec1.intersects(rec2)) {
             tank.die();
             this.die();
+            //调整爆炸的位置
+            int ex = tank.getX() + Constants.tankWidth / 2 - Explode.WIDTH / 2;
+            int ey = tank.getY() + Constants.tankHeight / 2 - Explode.HEIGHT / 2;
             //添加爆炸效果
-            tankFrame.explodes.add(new Explode(x, y, tankFrame));
+            tankFrame.explodes.add(new Explode(ex, ey, tankFrame));
         }
     }
 

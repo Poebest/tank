@@ -99,16 +99,16 @@ public class Tank {
 
         switch (dir) {
             case LEFT:
-                g.drawImage(ResourceMgr.goodTankL, x, y, null);
+                g.drawImage(Objects.equals(this.group, Group.GOOD) ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.goodTankR, x, y, null);
+                g.drawImage(Objects.equals(this.group, Group.GOOD) ? ResourceMgr.goodTankR : ResourceMgr.badTankR, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.goodTankD, x, y, null);
+                g.drawImage(Objects.equals(this.group, Group.GOOD) ? ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.goodTankU, x, y, null);
+                g.drawImage(Objects.equals(this.group, Group.GOOD) ? ResourceMgr.goodTankU : ResourceMgr.badTankU, x, y, null);
                 break;
             default:
                 break;
@@ -164,7 +164,7 @@ public class Tank {
         int bx = this.x + Constants.tankWidth / 2 - Constants.bulletWidth / 2;
         int by = this.y + Constants.tankHeight / 2 - Constants.bulletHeight / 2;
         tankFrame.bullets.add(new Bullet(bx, by, this.dir, this.group, tankFrame));
-        if (Objects.equals(this.group, Group.GOOD)){
+        if (Objects.equals(this.group, Group.GOOD)) {
             new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
         }
     }
