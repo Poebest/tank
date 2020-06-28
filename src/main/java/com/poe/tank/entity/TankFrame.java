@@ -33,12 +33,14 @@ public class TankFrame extends Frame {
      */
     public Tank tank =
             new Tank(Constants.tankHeight, Constants.tankHeight, Dir.DOWN, Group.GOOD, this);
-    private Explode explode = new Explode(100, 100, this);
+//    private Explode explode = new Explode(100, 100, this);
 
     public List<Tank> tanks = ListUtil.list(false);
 
 
     public List<Bullet> bullets = ListUtil.list(false);
+
+    public List<Explode> explodes = ListUtil.list(false);
 
     public int x, y = 100;
     /**
@@ -73,22 +75,26 @@ public class TankFrame extends Frame {
         Color color = g.getColor();
         g.setColor(Color.WHITE);
         g.drawString("子弹数量  : " + bullets.size(), 10, 60);
-        g.drawString("敌人的数量  : " + bullets.size(), 10, 80);
+        g.drawString("敌人的数量  : " + tanks.size(), 10, 80);
+        g.drawString("爆炸的数量  : " + explodes.size(), 10, 100);
         //设置tank 出现初始位置
         tank.paint(g);
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
         }
+        for (int i = 0; i < explodes.size(); i++) {
+            explodes.get(i).paint(g);
+        }
         for (int i = 0; i < tanks.size(); i++) {
             tanks.get(i).paint(g);
         }
+
         //进行碰撞校验
         for (int i = 0; i < bullets.size(); i++) {
             for (Tank value : tanks) {
                 bullets.get(i).collideWith(value);
             }
         }
-        explode.paint(g);
 
         g.setColor(color);
     }
