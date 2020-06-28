@@ -70,7 +70,7 @@ public class Tank {
     /**
      * 用于设置tank 位置
      */
-    private Rectangle rectangle = new Rectangle();
+    Rectangle rectangle = new Rectangle();
 
     // FIXME: 2020/6/13 tank新的构造方法
     public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
@@ -149,8 +149,31 @@ public class Tank {
         if (this.group == Group.BAD && random.nextInt(100) > 95) {
             //随机方向
             randomDir();
+
+            boundsCheck();
+
+            rectangle.x = x;
+            rectangle.y = y;
         }
 
+    }
+
+    /**
+     * 边界检查
+     */
+    private void boundsCheck() {
+        if (this.x < 2) {
+            x = 2;
+        }
+        if (this.y < 28) {
+            y = 28;
+        }
+        if (this.x > Constants.gameWidth - Constants.tankWidth - 2) {
+            x = Constants.gameWidth - Constants.tankWidth - 2;
+        }
+        if (this.y > Constants.gameHeight - Constants.tankHeight - 2) {
+            y = Constants.gameHeight - Constants.tankHeight - 2;
+        }
     }
 
     private void randomDir() {

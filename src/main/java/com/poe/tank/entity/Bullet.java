@@ -42,12 +42,20 @@ public class Bullet {
 
     private Group group;
 
+    Rectangle rectangle = new Rectangle();
+
     public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tankFrame = tankFrame;
         this.group = group;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
+
     }
 
 
@@ -98,6 +106,10 @@ public class Bullet {
             default:
                 break;
         }
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+
         if (x < 0 || y < 0 || x > Constants.gameWidth || y > Constants.gameHeight) {
             isLive = false;
         }
@@ -112,11 +124,11 @@ public class Bullet {
         if (Objects.equals(this.group, tank.getGroup())) {
             return;
         }
-        //子弹的区域
-        Rectangle rec1 = new Rectangle(x, y, WIDTH, HEIGHT);
-        //tank区域
-        Rectangle rec2 = new Rectangle(tank.getX(), tank.getHeight(), Constants.tankWidth, Constants.tankHeight);
-        if (rec1.intersects(rec2)) {
+//        //子弹的区域
+//        Rectangle rec1 = new Rectangle(x, y, WIDTH, HEIGHT);
+//        //tank区域
+//        Rectangle rec2 = new Rectangle(tank.getX(), tank.getHeight(), Constants.tankWidth, Constants.tankHeight);
+        if (rectangle.intersects(tank.rectangle)) {
             tank.die();
             this.die();
             //调整爆炸的位置
